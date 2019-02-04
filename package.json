@@ -9,6 +9,7 @@
    "private": true,
    "dependencies": {
       "@types/dotenv": "^6.1.0",
+      "@types/nodemailer": "^4.6.5",
       "apollo-server-express": "^2.3.3",
       "argon2": "^0.20.1",
       "connect-redis": "^3.4.0",
@@ -19,6 +20,7 @@
       "express-session": "^1.15.6",
       "graphql": "^14.1.1",
       "ioredis": "^4.5.1",
+      "nodemailer": "^5.1.1",
       "pg": "^7.8.0",
       "reflect-metadata": "^0.1.10",
       "type-graphql": "^0.16.0",

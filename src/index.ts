@@ -9,10 +9,11 @@ import * as connectRedis from "connect-redis";
 import { DefaultConnection } from "../config/typeorm";
 import { createSchema } from "./createSchema";
 import { redis } from "../config/redis";
+import { serverURL, serverPORT } from "../config/default";
 // tslint:disable-next-line
 require("dotenv").config();
 
-const { SESSION_SECRET, SESSION_NAME, NODE_ENV, URL, PORT } = process.env;
+const { SESSION_SECRET, SESSION_NAME, NODE_ENV } = process.env;
 
 const startServer = async () => {
   await createConnection(DefaultConnection);
@@ -57,8 +58,7 @@ const startServer = async () => {
     cors: false,
   });
 
-  const serverURL = PORT ? URL + ":" + PORT : URL;
-  app.listen({ port: PORT }, () =>
+  app.listen({ port: serverPORT }, () =>
     console.log(`🚀 Server is starting on ${serverURL}${server.graphqlPath} ..`)
   );
 };

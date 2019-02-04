@@ -4,6 +4,8 @@ import * as cuid from "cuid";
 import { User } from "../../models/User";
 import { redis, changePasswordUserPrefix } from "../../../config/redis";
 import { ForgotPasswordInput } from "./forgotPasswordInput";
+import { forgotPasswordMail } from "../../utils/mails";
+import { transporter } from "../../../config/nodemailer";
 
 @Resolver(User)
 export class ForgotPasswordResolver {
@@ -25,8 +27,8 @@ export class ForgotPasswordResolver {
       60 * 60 * 24 * 1
     ); // 1 day
 
-    // transporter.sendMail(forgotPasswordMail(user.mail, token));
-    console.log(token); // console log token while in dev
+    transporter.sendMail(forgotPasswordMail(user, token));
+    // console.log(token); // console log token while in dev
 
     return true;
   }

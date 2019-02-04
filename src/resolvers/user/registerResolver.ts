@@ -4,6 +4,8 @@ import * as cuid from "cuid";
 import { User } from "../../models/User";
 import { RegisterInput } from "./registerInput";
 import { redis, confirmUserPrefix } from "../../../config/redis";
+import { transporter } from "../../../config/nodemailer";
+import { verifyAccountMail } from "../../utils/mails";
 
 @Resolver(User)
 export class RegisterResolver {
@@ -22,8 +24,8 @@ export class RegisterResolver {
     const token = cuid();
     redis.set(confirmUserPrefix + token, user.id, "EX", 60 * 60 * 24 * 2); // 2 days
 
-    // transporter.sendMail(verifyAccountMail(user.email, token));
-    console.log(token); // log token while not live
+    transporter.sendMail(verifyAccountMail(user, token));
+    // console.log(token); // log token while not live
 
     return user;
   }
